@@ -4,6 +4,9 @@
   "main": "index.js",
   "author": "aereal <aereal@aereal.org>",
   "license": "MIT",
+  "scripts": {
+    "test": "jest"
+  },
   "peerDependencies": {
     "typescript": "^3.3.3"
   },
