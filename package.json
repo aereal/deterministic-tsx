@@ -3,5 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "author": "aereal <aereal@aereal.org>",
-  "license": "MIT"
+  "license": "MIT",
+  "peerDependencies": {
+    "typescript": "^3.3.3"
+  }
 }
