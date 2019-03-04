@@ -13,7 +13,7 @@ const isFunctionLiteral = (node: ts.Node) =>
 
 const isNonDeterministic = (node: ts.Node): boolean => {
   if (
-    node.parent.kind !== ts.SyntaxKind.JsxExpression &&
+    node.parent.kind === ts.SyntaxKind.JsxExpression &&
     isFunctionLiteral(node)
     // TODO array map
   ) {
