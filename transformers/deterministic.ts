@@ -43,6 +43,13 @@ const formatDiagnostic = (diag: ts.DiagnosticWithLocation): string => {
   }`
 }
 
+const dumpType = (typ: ts.Type) => {
+  const sym = typ.getSymbol()
+  return {
+    symbol: sym ? sym.getName() : null,
+  }
+}
+
 const deterministicTypeChecker = (
   checker: ts.TypeChecker,
   pluginOptions: {}
@@ -50,23 +57,23 @@ const deterministicTypeChecker = (
   return (ctx: ts.TransformationContext) => {
     return (file: ts.SourceFile) => {
       const visitor = (node: ts.Node): ts.Node => {
-        if (
-          node.kind === ts.SyntaxKind.CallExpression ||
-          node.kind === ts.SyntaxKind.FunctionExpression ||
-          node.kind === ts.SyntaxKind.ArrowFunction
-        ) {
-          const t = checker.getTypeAtLocation(node)
-          console.debug(
-            `---> node.kind:${ts.SyntaxKind[node.kind]} inJSX?:${inJSX(
-              node
-            )} node:${JSON.stringify(
-              node.getText()
-            )} parentNode:${JSON.stringify({
-              kind: node.parent.kind,
-              text: node.parent.getText(),
-            })}`
-          )
-        }
+        // if (
+        //   node.kind === ts.SyntaxKind.CallExpression ||
+        //   node.kind === ts.SyntaxKind.FunctionExpression ||
+        //   node.kind === ts.SyntaxKind.ArrowFunction
+        // ) {
+        const t = checker.getTypeAtLocation(node)
+        console.debug(
+          `---> node.kind:${ts.SyntaxKind[node.kind]} inJSX?:${inJSX(
+            node
+          )} node.type:${JSON.stringify(dumpType(t))} node:${JSON.stringify(
+            node.getText()
+          )} parentNode:${JSON.stringify({
+            kind: ts.SyntaxKind[node.parent.kind],
+            // text: node.parent.getText(),
+          })}`
+        )
+        // }
         if (isNonDeterministic(node)) {
           const diagnostic = createDiagnosticFrom(node)
           console.error(formatDiagnostic(diagnostic))
