@@ -1,7 +1,7 @@
 import React from "react"
 
 interface Props {
-  names: ReadonlyArray<string>
+  names: readonly string[];
 }
 
 export const ArrayMap = ({ names }: Props) => (
