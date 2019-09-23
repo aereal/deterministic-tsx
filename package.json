@@ -5,7 +5,8 @@
   "author": "aereal <aereal@aereal.org>",
   "license": "MIT",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "runExample": "ts-node --compiler ttypescript"
   },
   "peerDependencies": {
     "typescript": "^3.3.3"
